@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import gql from 'graphql-tag';
@@ -34,11 +34,10 @@ const resetPasswordSchema = Yup.object().shape({
     .required('Password confirm is required')
 });
 
-class ResetPassword extends Component {
-  componentDidMount = () => {
+function useAuthReset(url) {
+  useEffect(() => {
     const params = queryString.parse(window.location.search);
     if (params.uid && params.token && params.client_id) {
-      this.setState({ token: params.token });
       window.setTimeout(() => {
         localStorage.setItem(
           'auth_headers',
@@ -48,20 +47,18 @@ class ResetPassword extends Component {
             'access-token': params.token
           })
         );
+
+        window.history.replaceState({}, document.title, url);
       }, 0);
     } else {
       navigate('/');
     }
-  };
-
-  render() {
-    return <HandleResetPassword />;
-  }
+  }, []);
 }
 
-function HandleResetPassword() {
+function ResetPassword({ location, location: { origin, pathname } }) {
   const resetPassword = useMutation(RESET_PASSWORD);
-
+  useAuthReset(`${origin}${pathname}`);
   return (
     <div>
       <h1>Reset Password</h1>

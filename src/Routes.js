@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GuestAuthRoute from './authRoutes/GuestAuthRoute';
 import UserAuthRoute from './authRoutes/UserAuthRoute';
 import SimpleAuthRoute from './authRoutes/SimpleAuthRoute';
@@ -13,26 +13,24 @@ import ResetPassword from './screens/auth/ResetPassword';
 
 const LoggedIn = () => 'I am logged in';
 
-export default class Routes extends Component {
-  render() {
-    return (
-      <Router>
-        <GuestAuthRoute component={App} path="/" />
-        <UserAuthRoute component={LoggedIn} path="/private" />
-        <SimpleAuthRoute path="/signup" redirectAuth="/" component={SignUp} />
-        <SimpleAuthRoute path="/signin" redirectAuth="/" component={SignIn} />
-        <SimpleAuthRoute
-          path="/forgot-password"
-          redirectAuth="/"
-          component={ForgotPassword}
-        />
-        <SimpleAuthRoute
-          path="/reset-password"
-          redirectAuth="/"
-          component={ResetPassword}
-        />
-        <SimpleAuthRoute path="*" redirectAuth="/" component={NotFound} />
-      </Router>
-    );
-  }
+export default function Routes() {
+  return (
+    <Router>
+      <GuestAuthRoute component={App} path="/" />
+      <UserAuthRoute component={LoggedIn} path="/private" />
+      <SimpleAuthRoute path="/signup" redirectAuth="/" component={SignUp} />
+      <SimpleAuthRoute path="/signin" redirectAuth="/" component={SignIn} />
+      <SimpleAuthRoute
+        path="/forgot-password"
+        redirectAuth="/"
+        component={ForgotPassword}
+      />
+      <SimpleAuthRoute
+        path="/reset-password"
+        redirectAuth="/"
+        component={ResetPassword}
+      />
+      <SimpleAuthRoute path="*" redirectAuth="/" component={NotFound} />
+    </Router>
+  );
 }
