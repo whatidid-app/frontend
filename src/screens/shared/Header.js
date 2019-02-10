@@ -5,6 +5,7 @@ import { Container, ProfileDropdown } from '../../patterns';
 import { Link, Match } from '@reach/router';
 import { darken } from 'polished';
 import styled from '@emotion/styled';
+import { useMedia } from 'the-platform';
 
 const Nav = styled.nav`
   display: inline-block;
@@ -43,6 +44,8 @@ const NavLinkActive = props => (
 );
 
 export default function AuthHeader() {
+  const small = useMedia({ minWidth: 550 });
+
   return (
     <Box
       css={{
@@ -54,19 +57,21 @@ export default function AuthHeader() {
           <Link to="/">
             <Logo />
           </Link>
-          <Nav>
-            <ul>
-              <li>
-                <NavLinkActive to="/">Home</NavLinkActive>
-              </li>
-              <li>
-                <NavLinkActive to="/team">Team</NavLinkActive>
-              </li>
-              <li>
-                <NavLinkActive to="/settings">Settings</NavLinkActive>
-              </li>
-            </ul>
-          </Nav>
+          {small && (
+            <Nav>
+              <ul>
+                <li>
+                  <NavLinkActive to="/">Home</NavLinkActive>
+                </li>
+                <li>
+                  <NavLinkActive to="/team">Team</NavLinkActive>
+                </li>
+                <li>
+                  <NavLinkActive to="/settings">Settings</NavLinkActive>
+                </li>
+              </ul>
+            </Nav>
+          )}
           <Box ml="auto">
             <ProfileDropdown image="https://randomuser.me/api/portraits/women/72.jpg" />
           </Box>

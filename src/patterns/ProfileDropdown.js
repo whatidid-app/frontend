@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from '@emotion/styled';
 import ProfileImage from './ProfileImage';
 import useOnClickOutside from 'use-onclickoutside';
+import { useMedia } from 'the-platform';
 import { Link } from '.';
 
 const ActiveArea = styled.button`
@@ -63,11 +64,26 @@ export default function ProfileDropdown({ image }) {
   const ref = useRef();
   const [open, setOpen] = useState(false);
   useOnClickOutside(ref, () => setOpen(false));
+  const small = useMedia({ minWidth: 550 });
+
   return (
     <ActiveArea onClick={() => setOpen(!open)}>
       {open && (
         <DropDown ref={ref}>
           <ul>
+            {!small && (
+              <>
+                <Link to="/">
+                  <li>Home</li>
+                </Link>
+                <Link to="/team">
+                  <li>Team</li>
+                </Link>
+                <Link to="/settings">
+                  <li>Settings</li>
+                </Link>
+              </>
+            )}
             <Link to="/">
               <li>Switch Teams</li>
             </Link>
