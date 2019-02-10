@@ -8,6 +8,7 @@
     "@emotion/styled": "^10.0.7",
     "@reach/router": "^1.2.1",
     "@rebass/grid": "^6.0.0-7",
+    "@sentry/browser": "^4.5.3",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-client": "^2.4.12",
     "apollo-link-context": "^1.0.14",

@@ -9,6 +9,7 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import ErrorBoundary from './ErrorBoundary';
 import LogRocket from 'logrocket';
 
 if (process.env.REACT_APP_ENVIRONMENT === 'production') {
@@ -46,7 +47,9 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <ApolloHooksProvider client={client}>
       <Suspense fallback={<div>Loading...</div>}>
-        <Routes />
+        <ErrorBoundary>
+          <Routes />
+        </ErrorBoundary>
       </Suspense>
     </ApolloHooksProvider>
   </ApolloProvider>,
