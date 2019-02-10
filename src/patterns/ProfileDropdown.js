@@ -84,7 +84,10 @@ export default function ProfileDropdown({ image }) {
                 </Link>
               </>
             )}
-            <Link to="/">
+            <Link to="/profile">
+              <li>Profile</li>
+            </Link>
+            <Link to="/switch-teams">
               <li>Switch Teams</li>
             </Link>
             <hr />
