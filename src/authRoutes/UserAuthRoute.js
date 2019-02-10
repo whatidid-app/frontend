@@ -1,6 +1,8 @@
 import React from 'react';
 import AuthRoute from './AuthRoute';
 import { Redirect } from '@reach/router';
+import { Container } from '../patterns';
+import Header from '../screens/shared/Header';
 
 export default function UserAuthRoute(props) {
   const { component: Component } = props;
@@ -9,8 +11,11 @@ export default function UserAuthRoute(props) {
     <AuthRoute {...props}>
       {(props, user) => (
         <>
-          {!user && <Redirect noThrow to="/signin" from={props.path} />}
-          <Component {...props} user={user} />
+          <Header />
+          <Container>
+            {!user && <Redirect noThrow to="/login" from={props.path} />}
+            {user && <Component {...props} user={user} />}
+          </Container>
         </>
       )}
     </AuthRoute>

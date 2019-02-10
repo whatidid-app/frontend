@@ -4,6 +4,10 @@ import * as Yup from 'yup';
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks';
 import { navigate } from '@reach/router';
+import { Card, Title, Input, Button, Link } from '../../patterns';
+import { Box, Flex } from '@rebass/grid/emotion';
+import isEmpty from 'lodash/isEmpty';
+import { AlertService } from '../../lib';
 
 const REGISTER_USER = gql`
   mutation registerUser($input: RegisterUserInput!) {
@@ -26,90 +30,119 @@ const REGISTER_USER = gql`
 const SignUpSchema = Yup.object().shape({
   team: Yup.object()
     .shape({
-      name: Yup.string().required('Required')
+      name: Yup.string().required('Team name is required')
     })
     .required(),
-  name: Yup.string().required('Required'),
+  name: Yup.string().required('Name is required'),
   password: Yup.string()
-    .min(7, 'Too Short!')
-    .max(129, 'Too Long!')
-    .required('Required'),
+    .min(7, 'Password is too short')
+    .max(129, 'Password is too long')
+    .required('Password is required'),
   passwordConfirmation: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Password confirm is required'),
+    .required('Confirmation is required'),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required')
+    .email('Please enter a valid email address')
+    .required('Email address is required')
 });
 
 function SignUp() {
   const registerUser = useMutation(REGISTER_USER);
 
   return (
-    <div>
-      <h1>SignUp</h1>
-      <Formik
-        initialValues={{
-          team: {
-            name: ''
-          },
-          name: '',
-          password: '',
-          passwordConfirmation: '',
-          email: ''
-        }}
-        validationSchema={SignUpSchema}
-        onSubmit={input => {
-          registerUser({
-            variables: { input },
-            update: (
-              proxy,
-              {
-                data: {
-                  registerUser: { uid, client, accessToken, errors }
+    <Box width={1}>
+      <Title>Register</Title>
+      <Card>
+        <Formik
+          initialValues={{
+            team: {
+              name: ''
+            },
+            name: '',
+            password: '',
+            passwordConfirmation: '',
+            email: ''
+          }}
+          validationSchema={SignUpSchema}
+          onSubmit={(input, { setSubmitting }) => {
+            registerUser({
+              variables: { input },
+              update: (
+                proxy,
+                {
+                  data: {
+                    registerUser: { uid, client, accessToken, errors }
+                  }
                 }
-              }
-            ) => {
-              if (errors) {
-                console.log(errors);
-                return;
-              }
+              ) => {
+                if (errors) {
+                  AlertService('error', errors);
+                  setSubmitting(false);
+                  return;
+                }
 
-              localStorage.setItem(
-                'auth_headers',
-                JSON.stringify({ uid, client, 'access-token': accessToken })
-              );
+                localStorage.setItem(
+                  'auth_headers',
+                  JSON.stringify({ uid, client, 'access-token': accessToken })
+                );
 
-              navigate('/');
-            }
-          });
-        }}>
-        {({ errors, touched }) => (
-          <Form noValidate>
-            <Field name="team.name" />
-            {errors.team &&
-            errors.team.name &&
-            touched.team &&
-            touched.team.name ? (
-              <div>{errors.team.name}</div>
-            ) : null}
-            <Field name="name" />
-            {errors.name && touched.name ? <div>{errors.name}</div> : null}
-            <Field name="email" type="email" />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
-            <Field name="password" type="password" />
-            {errors.password && touched.password ? (
-              <div>{errors.password}</div>
-            ) : null}
-            <Field name="passwordConfirmation" type="password" />
-            {errors.passwordConfirmation && touched.passwordConfirmation ? (
-              <div>{errors.passwordConfirmation}</div>
-            ) : null}
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+                navigate('/');
+              }
+            });
+          }}>
+          {({ errors, touched, isSubmitting, dirty }) => (
+            <Form noValidate>
+              <Field name="team.name">
+                {props => {
+                  return <Input labelName="Team Name" type="text" {...props} />;
+                }}
+              </Field>
+              <Field name="name">
+                {props => {
+                  return <Input labelName="Name" type="text" {...props} />;
+                }}
+              </Field>
+              <Field name="email">
+                {props => {
+                  return <Input labelName="Email" type="email" {...props} />;
+                }}
+              </Field>
+              <Field name="password">
+                {props => {
+                  return (
+                    <Input labelName="Password" type="password" {...props} />
+                  );
+                }}
+              </Field>
+              <Field name="passwordConfirmation">
+                {props => {
+                  return (
+                    <Input
+                      css={{ marginBottom: '32px' }}
+                      labelName="Password Confirmation"
+                      type="password"
+                      {...props}
+                    />
+                  );
+                }}
+              </Field>
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isEmpty(errors) || !dirty}>
+                Register
+              </Button>
+              <Flex
+                mt="20px"
+                alignItems="center"
+                justifyContent="space-between">
+                <Link to="/forgot-password">forgot password</Link>
+                <Link to="/login">login</Link>
+              </Flex>
+            </Form>
+          )}
+        </Formik>
+      </Card>
+    </Box>
   );
 }
 

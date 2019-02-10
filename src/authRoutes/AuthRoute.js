@@ -36,7 +36,7 @@ export default function AuthRoute(props) {
   ) : (
     <Query query={GET_CURRENT_USER}>
       {({ loading, error, data = { viewer: null } }) => {
-        if (loading) return <div>...loading</div>;
+        if (loading) return null;
         if (data.viewer && redirectAuth)
           return <Redirect noThrow from={path} to={redirectAuth} />;
         return children(props, data.viewer);

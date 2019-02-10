@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 html,
 body,
 div,
@@ -86,6 +87,21 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
+*,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+body,
+button {
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -102,6 +118,7 @@ section {
 }
 body {
   line-height: 1;
+  background-color: #f5f7fa;
 }
 ol,
 ul {
@@ -121,4 +138,15 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #e4e7eb inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #3e4c59 !important;
 }

@@ -1,7 +1,12 @@
 import React from 'react';
+import { Title, Card } from '../patterns';
 
 function NotFound() {
-  return <div>NotFound</div>;
+  return (
+    <Card>
+      <Title>Page Not Found</Title>
+    </Card>
+  );
 }
 
 export default NotFound;
