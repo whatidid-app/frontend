@@ -63,9 +63,11 @@ export default function AlertBox(props) {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
+    let timeout;
     const emitter = EventEmitter.subscribe('alert', alert => {
       setAlerts([...alerts, alert]);
-      setTimeout(
+
+      timeout = setTimeout(
         () => {
           const index = alerts.indexOf(alert);
           setAlerts(alerts.filter((_, i) => i !== index));
@@ -75,6 +77,7 @@ export default function AlertBox(props) {
     });
 
     return () => {
+      clearTimeout(timeout);
       emitter();
     };
   }, []);
