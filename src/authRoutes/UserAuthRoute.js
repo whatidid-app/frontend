@@ -11,7 +11,7 @@ export default function UserAuthRoute(props) {
     <AuthRoute {...props}>
       {(props, user) => (
         <>
-          <Header />
+          {user && <Header />}
           <Container>
             {!user && <Redirect noThrow to="/login" from={props.path} />}
             {user && <Component {...props} user={user} />}
