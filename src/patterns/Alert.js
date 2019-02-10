@@ -10,7 +10,7 @@ const Animate = keyframes`
   }
 `;
 
-const Alert = styled(Box)`
+const AlertBox = styled(Box)`
   animation-duration: 0.8s;
   animation-fill-mode: forwards;
   animation-name: ${Animate};
@@ -59,7 +59,7 @@ const IconError = () => (
   </svg>
 );
 
-export default function AlertBox(props) {
+export default function Alert(props) {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
@@ -83,11 +83,11 @@ export default function AlertBox(props) {
   }, []);
 
   return alerts.map((alert, index) => (
-    <Alert type={alert.type} key={index} {...props}>
+    <AlertBox type={alert.type} key={index} {...props}>
       <Flex alignItems="center">
         {alert.type === 'error' && <IconError />}
         {alert.message}
       </Flex>
-    </Alert>
+    </AlertBox>
   ));
 }

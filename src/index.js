@@ -9,6 +9,11 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import LogRocket from 'logrocket';
+
+if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+  LogRocket.init('kstmwr/whatididapp');
+}
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_API_ROOT_URL}/graphql`
