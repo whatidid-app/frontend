@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks';
 import queryString from 'query-string';
 import { navigate } from '@reach/router';
-import { Card, Title, Input, Button, Link } from '../../patterns';
+import { LoginCard, Title, Input, Button, Link } from '../../patterns';
 import { Box, Flex } from '@rebass/grid/emotion';
 import isEmpty from 'lodash/isEmpty';
 
@@ -65,7 +65,7 @@ function ResetPassword({ location, location: { origin, pathname } }) {
   return (
     <Box width={1}>
       <Title>Reset Password</Title>
-      <Card>
+      <LoginCard>
         <Formik
           initialValues={{
             password: '',
@@ -133,7 +133,7 @@ function ResetPassword({ location, location: { origin, pathname } }) {
             </Form>
           )}
         </Formik>
-      </Card>
+      </LoginCard>
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Box } from '@rebass/grid/emotion';
 
-const Card = styled(Box)`
+const LoginCard = styled(Box)`
   background-color: #ffffff;
   padding: 30px 20px 20px;
   width: auto;
@@ -13,4 +13,4 @@ const Card = styled(Box)`
   margin: 0 auto;
 `;
 
-export default Card;
+export default LoginCard;

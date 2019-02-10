@@ -1,11 +1,11 @@
 import React from 'react';
-import { Title, Card } from '../patterns';
+import { Title, LoginCard } from '../patterns';
 
 function NotFound() {
   return (
-    <Card>
+    <LoginCard>
       <Title>Page Not Found</Title>
-    </Card>
+    </LoginCard>
   );
 }
 

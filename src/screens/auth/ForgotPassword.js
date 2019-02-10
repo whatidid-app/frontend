@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks';
-import { Card, Title, Input, Button, Link } from '../../patterns';
+import { LoginCard, Title, Input, Button, Link } from '../../patterns';
 import { Box, Flex } from '@rebass/grid/emotion';
 import isEmpty from 'lodash/isEmpty';
 
@@ -28,7 +28,7 @@ function ForgotPassword() {
   return (
     <Box width={1}>
       <Title>Forgot Password</Title>
-      <Card>
+      <LoginCard>
         <Formik
           initialValues={{
             email: ''
@@ -77,7 +77,7 @@ function ForgotPassword() {
             </Form>
           )}
         </Formik>
-      </Card>
+      </LoginCard>
     </Box>
   );
 }

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks';
 import { navigate } from '@reach/router';
-import { Card, Title, Input, Button, Link } from '../../patterns';
+import { LoginCard, Title, Input, Button, Link } from '../../patterns';
 import { Box, Flex } from '@rebass/grid/emotion';
 import isEmpty from 'lodash/isEmpty';
 import { AlertService } from '../../lib';
@@ -52,7 +52,7 @@ function SignUp() {
   return (
     <Box width={1}>
       <Title>Register</Title>
-      <Card>
+      <LoginCard>
         <Formik
           initialValues={{
             team: {
@@ -141,7 +141,7 @@ function SignUp() {
             </Form>
           )}
         </Formik>
-      </Card>
+      </LoginCard>
     </Box>
   );
 }
