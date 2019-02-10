@@ -1,7 +1,7 @@
 language: node_js
+cache: npm
 node_js:
   - '10'
-cache: npm
 script:
   - yarn test || travis_terminate 1;
   - yarn codecov
