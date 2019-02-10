@@ -16,5 +16,3 @@ script:
       git config --global push.default simple;
       bash deploy.sh;
     fi
-after_script:
-  - yarn codecov
